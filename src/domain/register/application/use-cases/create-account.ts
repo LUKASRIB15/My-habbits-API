@@ -2,6 +2,8 @@ import { Injectable } from "@nestjs/common"
 import { Client } from "../../enterprise/entities/client"
 import { HashGenerator } from "../cryptography/hash-generator"
 import { ClientsRepository } from "../repositories/clients-repository"
+import { ConflictError } from "@/core/errors/generic/conflict-error"
+import {Either, failure, success } from "@/core/errors/either"
 
 type CreateAccountUseCaseRequest = {
   name: string
@@ -9,7 +11,7 @@ type CreateAccountUseCaseRequest = {
   password:string
 }
 
-type CreateAccountUseCaseResponse = null
+type CreateAccountUseCaseResponse = Either<ConflictError, null>
 
 @Injectable()
 export class CreateAccountUseCase {
@@ -27,7 +29,7 @@ export class CreateAccountUseCase {
     const clientWithSameEmail = await this.clientsRepository.findByEmail(email)
 
     if(clientWithSameEmail){
-      throw new Error("Client already exists.")
+      return failure(new ConflictError("Client already exists."))
     }
 
     const passwordHash = await this.hashGenerator.hash(password)
@@ -40,6 +42,6 @@ export class CreateAccountUseCase {
 
     await this.clientsRepository.create(client)
 
-    return null
+    return success(null)
   }
 }
