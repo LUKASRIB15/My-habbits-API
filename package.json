@@ -20,17 +20,22 @@
     "test:e2e": "vitest run --config ./vitest.config.e2e.mts"
   },
   "dependencies": {
+    "@anatine/zod-nestjs": "^2.0.10",
+    "@anatine/zod-openapi": "^2.2.7",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^4.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/jwt": "^11.0.0",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/swagger": "^11.0.6",
     "@prisma/client": "6.4.1",
     "bcryptjs": "^3.0.2",
+    "openapi3-ts": "^4.4.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
+    "swagger-ui-express": "^5.0.1",
     "zod": "^3.24.2",
     "zod-validation-error": "^3.4.0"
   },

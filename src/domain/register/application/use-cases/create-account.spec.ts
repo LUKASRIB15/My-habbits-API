@@ -2,6 +2,7 @@ import { InMemoryClientsRepository } from "test/repositories/in-memory-clients-r
 import { CreateAccountUseCase } from "./create-account"
 import { FakeHasher } from "test/cryptography/fake-hasher"
 import { makeClient } from "test/factories/make-client"
+import { ConflictError } from "@/core/errors/generic/conflict-error"
 
 describe("CreateAccountUseCase", ()=>{
   let inMemoryClientsRepository: InMemoryClientsRepository
@@ -16,12 +17,13 @@ describe("CreateAccountUseCase", ()=>{
 
   it("should be able to create account of client", async ()=>{
 
-    await sut.execute({
+    const result = await sut.execute({
       name: "John Doe",
       email: "johnDoe@example.com",
       password: "123456"
     })
 
+    expect(result.isSuccess()).toBeTruthy()
     expect(inMemoryClientsRepository.items).toHaveLength(1)
     expect(inMemoryClientsRepository.items[0].password).toBe("123456-hashed")
   })
@@ -31,12 +33,13 @@ describe("CreateAccountUseCase", ()=>{
       email: "johnDoe@example.com"
     }))
 
-    await expect(async()=>{
-      await sut.execute({
-        name: "John Doe",
-        email: "johnDoe@example.com",
-        password: "123456"
-      })
-    }).rejects.toBeInstanceOf(Error)
+    const result = await sut.execute({
+      name: "John Doe",
+      email: "johnDoe@example.com",
+      password: "123456"
+    })
+
+    expect(result.isFailure()).toBeTruthy()
+    expect(result.value).toBeInstanceOf(ConflictError)
   })
 })
