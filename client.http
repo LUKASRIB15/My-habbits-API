@@ -1,0 +1,24 @@
+@base_url = http://localhost:3333
+
+# @name create_account  
+
+POST {{base_url}}/clients/new
+Content-Type: application/json
+
+{
+  "name": "test",
+  "email": "test@email.com",
+  "password": "123456"
+}
+
+###
+
+# @name authenticate_account
+
+POST {{base_url}}/clients/auth
+Content-Type: application/json
+
+{
+  "email": "test@email.com",
+  "password": "123456"
+}

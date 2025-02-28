@@ -1,3 +1,4 @@
+import { Injectable } from "@nestjs/common"
 import { Client } from "../../enterprise/entities/client"
 import { HashGenerator } from "../cryptography/hash-generator"
 import { ClientsRepository } from "../repositories/clients-repository"
@@ -10,6 +11,7 @@ type CreateAccountUseCaseRequest = {
 
 type CreateAccountUseCaseResponse = null
 
+@Injectable()
 export class CreateAccountUseCase {
 
   constructor(

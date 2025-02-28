@@ -10,6 +10,10 @@ export default defineConfig({
   },
   plugins: [
     tsConfigPaths(),
-    swc.vite()
+    swc.vite(
+      {
+        module: { type: 'es6' },
+      }
+    )
   ],
 });
