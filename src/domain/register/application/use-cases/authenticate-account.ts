@@ -1,3 +1,4 @@
+import { Injectable } from "@nestjs/common"
 import { Encrypter } from "../cryptography/encrypter"
 import { HashComparer } from "../cryptography/hash-comparer"
 import { ClientsRepository } from "../repositories/clients-repository"
@@ -11,6 +12,7 @@ type AuthenticateAccountUseCaseResponse = {
   accessToken: string
 }
 
+@Injectable()
 export class AuthenticateAccountUseCase {
   constructor(
     private clientsRepository: ClientsRepository,

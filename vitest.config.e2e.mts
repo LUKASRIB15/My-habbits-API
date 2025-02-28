@@ -8,9 +8,12 @@ export default defineConfig({
     include: ['**/*.e2e-spec.ts'],
     globals: true,
     root: './',
+    setupFiles: ['test/setup-e2e.ts'],
   },
   plugins: [
     tsConfigPaths(),
-    swc.vite()
+    swc.vite({
+      module: { type: 'es6' },
+    })
   ],
 });
