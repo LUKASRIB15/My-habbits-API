@@ -13,6 +13,8 @@ RUN pnpm prisma generate
 
 COPY . .
 
+RUN pnpm build
+
 RUN pnpm install --prod && pnpm store prune && pnpm install prisma
 
 FROM node:20-alpine3.21
