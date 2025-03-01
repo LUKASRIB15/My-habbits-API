@@ -1,0 +1,46 @@
+name: "CI"
+
+on:
+  push:
+
+jobs:
+  build:
+    name: Build and Push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js | Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      
+      - name: Install pnpm manager
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Unit Tests
+        run: pnpm run test
+
+      - name: Generate Tag
+        id: generate_tag
+        run: |
+          SHA=$(echo ${GITHUB_SHA} | cut -c1-7)
+          echo "sha=${SHA}" >> $GITHUB_OUTPUT
+
+      - name: Login with Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Build to Docker Hub
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: lukasrib15dev/my-habbits:${{ steps.generate_tag.outputs.sha }},lukasrib15dev/my-habbits:latest
+  

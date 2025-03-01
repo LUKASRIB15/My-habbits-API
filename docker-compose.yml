@@ -1,8 +1,8 @@
 version: "3.8"
 
 services:
-  postgresql:
-    container_name: postgresql
+  postgresDB:
+    container_name: postgresql-db
     image: postgres
     ports:
       - 5432:5432
@@ -10,3 +10,29 @@ services:
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_DB=${DATABASE_NAME}
+    networks:
+      - main-network
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  api:
+    container_name: my-habbits-api
+    image: my-habbits:v0
+    build:
+      context: .
+    ports:
+      - 3333:3333
+    env_file:
+      - .env
+      - .env.production
+    depends_on:
+      - postgresDB
+    networks:
+      - main-network
+
+networks:
+  main-network:
+    driver: bridge
+
+volumes:
+  db-data:
