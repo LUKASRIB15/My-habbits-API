@@ -4,7 +4,7 @@ import { INestApplication } from "@nestjs/common"
 import { Test } from "@nestjs/testing"
 import request from "supertest"
 import { hash } from "bcryptjs"
-import { ClientFactory } from "test/factories/make-client"
+import { ClientFactory } from "test/makes/make-client"
 
 describe("AuthenticateAccountController (e2e)", ()=>{
   let app: INestApplication
