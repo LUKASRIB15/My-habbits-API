@@ -7,6 +7,7 @@ jobs:
   build:
     name: Build and Push
     runs-on: ubuntu-latest
+    needs: e2e-tests
 
     steps:
       - name: Checkout
@@ -45,19 +46,8 @@ jobs:
           tags: lukasrib15dev/my-habbits:${{ steps.generate_tag.outputs.sha }},lukasrib15dev/my-habbits:latest
   
   e2e-tests:
-      name: Run End-to-End Tests on Docker Image
+      name: End-to-End Tests 
       runs-on: ubuntu-latest
-      needs: build  # Garante que esse job seja executado após o build
-
-      services:
-        postgres:
-          image: postgres
-          env:
-            POSTGRES_USER: ${{ secrets.DATABASE_USER }}
-            POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-            POSTGRES_DB: ${{ secrets.DATABASE_NAME }}
-          ports:
-            - 5432:5432
 
       steps:
         - name: Checkout
@@ -74,6 +64,9 @@ jobs:
         - name: Install dependencies
           run: pnpm install
 
+        - name: Up Services in Docker compose
+          run: docker-compose up -d
+
         - name: Generate Prisma Client
           env:
             DATABASE_URL: postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@localhost:5432/${{ secrets.DATABASE_NAME }}?schema=public
@@ -86,8 +79,5 @@ jobs:
 
         - name: Run End-to-End Tests on the Docker Image  # Executa testes E2E na imagem gerada
           run: |
-            docker run -d --name my-habbits -p 3333:3333 lukasrib15dev/my-habbits:${{ steps.generate_tag.outputs.sha }}
-            sleep 10  
             pnpm run test:e2e
-            docker stop my-habbits
-            docker rm my-habbits
+            docker-compose down
