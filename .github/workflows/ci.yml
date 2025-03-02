@@ -82,7 +82,5 @@ jobs:
             DATABASE_URL: postgresql://user:password@postgresDB:5432/db?schema=public
           run: pnpm prisma migrate deploy
 
-        # - name: Run End-to-End Tests on the Docker Image  # Executa testes E2E na imagem gerada
-        #   run: |
-        #     pnpm run test:e2e
-        #     docker-compose down
+        - name: Run End-to-End Tests
+          run: pnpm run test:e2e
