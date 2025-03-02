@@ -39,14 +39,15 @@ jobs:
   tests:
       name: Run Tests 
       runs-on: ubuntu-latest
+      container: node:20-bookworm-slim
 
       services:
         postgresDB:
           image: postgres
           env:
-            POSTGRES_USER: ${{ secrets.DATABASE_USER }}
-            POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-            POSTGRES_DB: ${{ secrets.DATABASE_NAME }}
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: db
           ports:
             - 5432:5432
 
@@ -68,23 +69,17 @@ jobs:
         - name: Run Unit Tests
           run: pnpm run test
 
-        - name: Wait for PostgreSQL to be ready
-          run: |
-            for i in {1..10}; do
-              nc -z api-postgresDB 5432 && echo "Database is ready!" && exit 0
-              echo "Waiting for database..."
-              sleep 3
-            done
-            echo "Database failed to start" && exit 1
+        - name: Connect to PostgreSQL
+          run: node client.js
 
         - name: Generate Prisma Client
           env:
-            DATABASE_URL: postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@postgresDB:5432/${{ secrets.DATABASE_NAME }}?schema=public
+            DATABASE_URL: postgresql://user:password@postgresDB:5432/db?schema=public
           run: pnpm prisma generate
 
         - name: Run Migrations
           env:
-            DATABASE_URL: postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@postgresDB:5432/${{ secrets.DATABASE_NAME }}?schema=public
+            DATABASE_URL: postgresql://user:password@postgresDB:5432/db?schema=public
           run: pnpm prisma migrate deploy
 
         # - name: Run End-to-End Tests on the Docker Image  # Executa testes E2E na imagem gerada
