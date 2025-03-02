@@ -3,6 +3,11 @@ name: "CI"
 on:
   push:
 
+env:
+  DATABASE_URL: postgresql://user:password@postgresDB:5432/db
+  JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY }}
+  JWT_PUBLIC_KEY: ${{ secrets.JWT_PUBLIC_KEY }}
+
 jobs:
   build:
     name: Build and Push to Docker Hub
