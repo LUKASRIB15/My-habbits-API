@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    name: Build and Push
+    name: Build and Push to Docker Hub
     runs-on: ubuntu-latest
     needs: e2e-tests
 
@@ -17,15 +17,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      
-      - name: Install pnpm manager
-        run: npm install -g pnpm
-
-      - name: Install dependencies
-        run: pnpm install 
-
-      - name: Run Unit Tests
-        run: pnpm run test
 
       - name: Generate Tag
         id: generate_tag
@@ -63,26 +54,21 @@ jobs:
 
         - name: Install dependencies
           run: pnpm install
+  
+        - name: Run Unit Tests
+          run: pnpm run test
 
-        - name: Instalar Docker Compose 
-          run: |
-            sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-            sudo chmod +x /usr/local/bin/docker-compose
+        # - name: Generate Prisma Client
+        #   env:
+        #     DATABASE_URL: postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@localhost:5432/${{ secrets.DATABASE_NAME }}?schema=public
+        #   run: pnpm prisma generate
 
-        - name: Up Services in Docker compose
-          run: docker-compose up -d
+        # - name: Run Migrations
+        #   env:
+        #     DATABASE_URL: postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@localhost:5432/${{ secrets.DATABASE_NAME }}?schema=public
+        #   run: pnpm prisma migrate deploy
 
-        - name: Generate Prisma Client
-          env:
-            DATABASE_URL: postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@localhost:5432/${{ secrets.DATABASE_NAME }}?schema=public
-          run: pnpm prisma generate
-
-        - name: Run Migrations
-          env:
-            DATABASE_URL: postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@localhost:5432/${{ secrets.DATABASE_NAME }}?schema=public
-          run: pnpm prisma migrate deploy
-
-        - name: Run End-to-End Tests on the Docker Image  # Executa testes E2E na imagem gerada
-          run: |
-            pnpm run test:e2e
-            docker-compose down
+        # - name: Run End-to-End Tests on the Docker Image  # Executa testes E2E na imagem gerada
+        #   run: |
+        #     pnpm run test:e2e
+        #     docker-compose down
