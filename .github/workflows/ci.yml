@@ -40,6 +40,16 @@ jobs:
       name: End-to-End Tests 
       runs-on: ubuntu-latest
 
+      services:
+        postgresDB:
+          image: postgres
+          env:
+            POSTGRES_USER: ${{ secrets.DATABASE_USER }}
+            POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+            POSTGRES_DB: ${{ secrets.DATABASE_NAME }}
+          ports:
+            - 5432:5432
+
       steps:
         - name: Checkout
           uses: actions/checkout@v4
@@ -58,15 +68,15 @@ jobs:
         - name: Run Unit Tests
           run: pnpm run test
 
-        # - name: Generate Prisma Client
-        #   env:
-        #     DATABASE_URL: postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@localhost:5432/${{ secrets.DATABASE_NAME }}?schema=public
-        #   run: pnpm prisma generate
+        - name: Generate Prisma Client
+          env:
+            DATABASE_URL: postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@localhost:5432/${{ secrets.DATABASE_NAME }}?schema=public
+          run: pnpm prisma generate
 
-        # - name: Run Migrations
-        #   env:
-        #     DATABASE_URL: postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@localhost:5432/${{ secrets.DATABASE_NAME }}?schema=public
-        #   run: pnpm prisma migrate deploy
+        - name: Run Migrations
+          env:
+            DATABASE_URL: postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@localhost:5432/${{ secrets.DATABASE_NAME }}?schema=public
+          run: pnpm prisma migrate deploy
 
         # - name: Run End-to-End Tests on the Docker Image  # Executa testes E2E na imagem gerada
         #   run: |
