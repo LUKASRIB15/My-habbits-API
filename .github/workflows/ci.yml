@@ -73,6 +73,9 @@ jobs:
           env:
             DATABASE_URL: postgresql://user:password@postgresDB:5432/db?schema=public
           run: pnpm prisma generate
+        
+        - name: Instalar OpenSSL
+          run: sudo apt-get update -y && sudo apt-get install -y openssl
 
         - name: Run Migrations
           env:
