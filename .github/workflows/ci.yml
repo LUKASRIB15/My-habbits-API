@@ -69,9 +69,6 @@ jobs:
         - name: Run Unit Tests
           run: pnpm run test
 
-        - name: Connect to PostgreSQL
-          run: node client.js
-
         - name: Generate Prisma Client
           env:
             DATABASE_URL: postgresql://user:password@postgresDB:5432/db?schema=public
