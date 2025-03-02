@@ -75,7 +75,7 @@ jobs:
           run: pnpm prisma generate
         
         - name: Instalar OpenSSL
-          run: sudo apt-get update -y && sudo apt-get install -y openssl
+          run: apt-get update -y && apt-get install -y openssl
 
         - name: Run Migrations
           env:
