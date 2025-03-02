@@ -2,7 +2,7 @@ import { FakeEncrypter } from "test/cryptography/fake-encrypter"
 import { FakeHasher } from "test/cryptography/fake-hasher"
 import { InMemoryClientsRepository } from "test/repositories/in-memory-clients-repository"
 import { AuthenticateAccountUseCase } from "./authenticate-account"
-import { makeClient } from "test/factories/make-client"
+import { makeClient } from "test/makes/make-client"
 import { UnauthorizedError } from "@/core/errors/generic/unauthorized-error"
 
 describe("AuthenticateAccountUseCase", ()=>{

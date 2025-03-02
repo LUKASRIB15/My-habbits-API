@@ -1,7 +1,7 @@
 import { InMemoryClientsRepository } from "test/repositories/in-memory-clients-repository"
 import { CreateAccountUseCase } from "./create-account"
 import { FakeHasher } from "test/cryptography/fake-hasher"
-import { makeClient } from "test/factories/make-client"
+import { makeClient } from "test/makes/make-client"
 import { ConflictError } from "@/core/errors/generic/conflict-error"
 
 describe("CreateAccountUseCase", ()=>{
