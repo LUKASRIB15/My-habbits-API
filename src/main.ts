@@ -9,7 +9,8 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle("My Habbits")
-    .setVersion("0.0.1")
+    .setVersion("0.0.2")
+    .addBearerAuth()
     .build()
 
   const document = SwaggerModule.createDocument(app, config)
