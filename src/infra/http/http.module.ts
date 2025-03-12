@@ -5,6 +5,8 @@ import { CreateAccountUseCase } from "@/domain/register/application/use-cases/cr
 import { CryptographyModule } from "../cryptography/cryptography.module";
 import { AuthenticateAccountController } from "./controllers/authenticate-account.controller";
 import { AuthenticateAccountUseCase } from "@/domain/register/application/use-cases/authenticate-account";
+import { GetClientByIdController } from "./controllers/get-client-by-id.controller";
+import { GetClientByIdUseCase } from "@/domain/register/application/use-cases/get-client-by-id";
 
 @Module({
   imports: [
@@ -13,11 +15,13 @@ import { AuthenticateAccountUseCase } from "@/domain/register/application/use-ca
   ],
   controllers: [
     CreateAccountController,
-    AuthenticateAccountController
+    AuthenticateAccountController,
+    GetClientByIdController
   ],
   providers: [
     CreateAccountUseCase,
-    AuthenticateAccountUseCase
+    AuthenticateAccountUseCase,
+    GetClientByIdUseCase
   ]
 })
 export class HttpModule {}

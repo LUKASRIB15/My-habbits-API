@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger"
 
 export class CreateAccountDTO{
-  @ApiProperty()
+  @ApiProperty({example: "John Client"})
   name: string
 
   @ApiProperty({example: "client@email.com"})

@@ -1,4 +1,5 @@
 @base_url = http://localhost:3333
+@access_token = {{authenticate_account.response.body.access_token}}
 
 # @name create_account  
 
@@ -22,3 +23,11 @@ Content-Type: application/json
   "email": "test@email.com",
   "password": "123456"
 }
+
+###
+
+# @name get_client_by_id
+
+GET {{base_url}}/clients/me
+Content-Type: application/json
+Authorization: Bearer {{access_token}}

@@ -16,10 +16,6 @@ export class UniqueEntityID {
   }
 
   public equals(entity: UniqueEntityID){
-    if(entity === this && entity.value === this.value){
-      return true
-    }
-
-    return false
+    return entity.value === this.value
   }
 }
