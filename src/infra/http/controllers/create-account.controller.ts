@@ -1,4 +1,4 @@
-import { CreateAccountUseCase } from "@/domain/register/application/use-cases/create-account";
+import { CreateAccountUseCase } from "@/domain/app/application/use-cases/create-account";
 import { BadRequestException, Body, ConflictException, Controller, HttpCode, Post, UsePipes } from "@nestjs/common";
 import { z } from "zod";
 import { ZodValidationPipe } from "../pipes/zod-validation.pipe";

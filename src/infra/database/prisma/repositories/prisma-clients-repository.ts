@@ -1,5 +1,5 @@
-import { ClientsRepository } from "@/domain/register/application/repositories/clients-repository";
-import { Client } from "@/domain/register/enterprise/entities/client";
+import { ClientsRepository } from "@/domain/app/application/repositories/clients-repository";
+import { Client } from "@/domain/app/enterprise/entities/client";
 import { PrismaClientsMapper } from "../mappers/prisma-clients-mapper";
 import { PrismaService } from "../prisma.service";
 import { Injectable } from "@nestjs/common";
@@ -15,6 +15,27 @@ export class PrismaClientsRepository implements ClientsRepository {
 
     await this.prisma.client.create({
       data
+    })
+  }
+
+  async update(client: Client): Promise<void> {
+    const data = PrismaClientsMapper.toPrisma(client)
+
+    await this.prisma.client.update({
+      where: {
+        id: data.id,
+      },
+      data
+    })
+  }
+
+  async delete(client: Client): Promise<void> {
+    const data = PrismaClientsMapper.toPrisma(client)
+
+    await this.prisma.client.delete({
+      where: {
+        id: data.id,
+      }
     })
   }
 

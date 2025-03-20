@@ -31,3 +31,25 @@ Content-Type: application/json
 GET {{base_url}}/clients/me
 Content-Type: application/json
 Authorization: Bearer {{access_token}}
+
+###
+
+# @name edit_client
+
+PUT {{base_url}}/clients/me/edit
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "name": "test-edited",
+  "email": "test@email.com",
+  "password": "123456"
+}
+
+###
+
+# @name delete_client_by_id
+
+DELETE {{base_url}}/clients/me/delete
+Content-Type: application/json
+Authorization: Bearer {{access_token}}

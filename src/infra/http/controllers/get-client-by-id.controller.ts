@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from "@/core/errors/generic/resource-not-found-error";
-import { GetClientByIdUseCase } from "@/domain/register/application/use-cases/get-client-by-id";
+import { GetClientByIdUseCase } from "@/domain/app/application/use-cases/get-client-by-id";
 import { CurrentUser } from "@/infra/auth/current-user.decorator";
 import { UserPayload } from "@/infra/auth/jwt-strategy";
 import { BadRequestException, Controller, Get, HttpCode, NotFoundException } from "@nestjs/common";
