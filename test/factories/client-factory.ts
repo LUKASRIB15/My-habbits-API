@@ -1,4 +1,4 @@
-import { ClientProps } from "@/domain/register/enterprise/entities/client"
+import { ClientProps } from "@/domain/app/enterprise/entities/client"
 import { PrismaClientsMapper } from "@/infra/database/prisma/mappers/prisma-clients-mapper"
 import { PrismaService } from "@/infra/database/prisma/prisma.service"
 import { Injectable } from "@nestjs/common"

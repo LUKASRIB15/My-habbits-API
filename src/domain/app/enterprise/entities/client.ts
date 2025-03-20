@@ -11,13 +11,25 @@ export class Client extends Entity<ClientProps>{
   get name(){
     return this.props.name
   }
+
+  set name(value: string){
+    this.props.name = value
+  }
   
   get email(){
     return this.props.email
   }
 
+  set email(value: string){
+    this.props.email = value
+  }
+
   get password(){
     return this.props.password
+  }
+
+  set password(value: string){
+    this.props.password = value
   }
 
   static create(props: ClientProps, id?: UniqueEntityID){

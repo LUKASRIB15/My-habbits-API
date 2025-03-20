@@ -1,5 +1,5 @@
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
-import { Client } from "@/domain/register/enterprise/entities/client";
+import { Client } from "@/domain/app/enterprise/entities/client";
 import { Prisma } from "@prisma/client";
 
 export class PrismaClientsMapper {

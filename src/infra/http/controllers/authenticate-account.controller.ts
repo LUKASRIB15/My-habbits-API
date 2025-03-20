@@ -1,4 +1,4 @@
-import { AuthenticateAccountUseCase } from "@/domain/register/application/use-cases/authenticate-account";
+import { AuthenticateAccountUseCase } from "@/domain/app/application/use-cases/authenticate-account";
 import { BadRequestException, Body, Controller, HttpCode, Post, UnauthorizedException, UsePipes } from "@nestjs/common";
 import { z } from "zod";
 import { ZodValidationPipe } from "../pipes/zod-validation.pipe";
