@@ -11,6 +11,10 @@ import { EditClientController } from "./controllers/edit-client.controller";
 import { EditClientUseCase } from "@/domain/app/application/use-cases/edit-client";
 import { DeleteClientByIdController } from "./controllers/delete-client-by-id.controller";
 import { DeleteClientByIdUseCase } from "@/domain/app/application/use-cases/delete-client-by-id";
+import { CreateHabitController } from "./controllers/create-habit.controller";
+import { CreateHabitUseCase } from "@/domain/app/application/use-cases/create-habit";
+import { FetchHabitsByDayController } from "./controllers/fetch-habits-by-day.controller";
+import { FetchHabitsByDayUseCase } from "@/domain/app/application/use-cases/fetch-habits-by-day";
 
 @Module({
   imports: [
@@ -22,14 +26,18 @@ import { DeleteClientByIdUseCase } from "@/domain/app/application/use-cases/dele
     AuthenticateAccountController,
     GetClientByIdController,
     EditClientController,
-    DeleteClientByIdController
+    DeleteClientByIdController,
+    CreateHabitController,
+    FetchHabitsByDayController
   ],
   providers: [
     CreateAccountUseCase,
     AuthenticateAccountUseCase,
     GetClientByIdUseCase,
     EditClientUseCase,
-    DeleteClientByIdUseCase
+    DeleteClientByIdUseCase,
+    CreateHabitUseCase,
+    FetchHabitsByDayUseCase
   ]
 })
 export class HttpModule {}

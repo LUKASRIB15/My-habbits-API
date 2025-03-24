@@ -15,10 +15,33 @@ datasource db {
 }
 
 model Client {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   name     String
-  email    String @unique
+  email    String  @unique
   password String
+  habits   Habit[]
 
   @@map("clients")
+}
+
+model Habit {
+  id        String          @id @default(uuid())
+  title     String
+  createdAt DateTime        @map("created_at")
+  weekDays  HabitWeekDays[]
+  clientId  String          @map("client_id")
+
+  client Client @relation(fields: [clientId], references: [id])
+
+  @@map("habits")
+}
+
+model HabitWeekDays {
+  id      String @id @default(uuid())
+  habitId String @map("habit_id")
+  weekDay Int    @map("week_day")
+
+  habit Habit @relation(fields: [habitId], references: [id])
+
+  @@map("habit_week_days")
 }
