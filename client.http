@@ -53,3 +53,24 @@ Authorization: Bearer {{access_token}}
 DELETE {{base_url}}/clients/me/delete
 Content-Type: application/json
 Authorization: Bearer {{access_token}}
+
+###
+
+# @name create_habit
+
+POST {{base_url}}/habits/new
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "title": "Ir para a academia",
+  "weekDays": [1,2,3,4,5]
+}
+
+###
+
+# @name fetch_habits_by_day
+
+GET {{base_url}}/habits/day?date=2025-03-24T03:00:00.000
+Content-Type: application/json
+Authorization: Bearer {{access_token}} 
