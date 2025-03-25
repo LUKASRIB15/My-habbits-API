@@ -15,6 +15,9 @@ describe("FetchHabitsByDayController (e2e)", ()=>{
   let habitFactory: HabitFactory
   let habitWeekDayFactory: HabitWeekDayFactory
 
+  const tomorrow = new Date().getDay() + 1
+  const today = new Date().getDay()
+
   beforeAll(async ()=>{
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
@@ -47,17 +50,17 @@ describe("FetchHabitsByDayController (e2e)", ()=>{
     await Promise.all([
       habitWeekDayFactory.makePrismaHabitWeekDay({
         habitId: habitOne.id,
-        weekDay: 1
+        weekDay: today
       }),
   
       habitWeekDayFactory.makePrismaHabitWeekDay({
         habitId: habitOne.id,
-        weekDay: 3
+        weekDay: tomorrow
       }),
       
       habitWeekDayFactory.makePrismaHabitWeekDay({
         habitId: habitTwo.id,
-        weekDay: 1
+        weekDay: today
       })
     ])
 
