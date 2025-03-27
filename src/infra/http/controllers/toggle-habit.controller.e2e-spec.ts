@@ -7,10 +7,12 @@ import { ClientFactory } from "test/factories/client-factory"
 import { HabitFactory } from "test/factories/habit-factory"
 import { HabitWeekDayFactory } from "test/factories/habit-week-day-factory"
 import request from "supertest"
+import { PrismaService } from "@/infra/database/prisma/prisma.service"
 
-describe("FetchHabitsByDayController (e2e)", ()=>{
+describe("ToggleHabitController (e2e)", ()=>{
   let app: INestApplication
   let jwt: JwtService
+  let prisma: PrismaService
   let clientFactory: ClientFactory
   let habitFactory: HabitFactory
   let habitWeekDayFactory: HabitWeekDayFactory
@@ -26,6 +28,7 @@ describe("FetchHabitsByDayController (e2e)", ()=>{
 
     app = moduleRef.createNestApplication()
     jwt = moduleRef.get(JwtService)
+    prisma = moduleRef.get(PrismaService)
     clientFactory = moduleRef.get(ClientFactory)
     habitFactory = moduleRef.get(HabitFactory)
     habitWeekDayFactory = moduleRef.get(HabitWeekDayFactory)
@@ -33,9 +36,10 @@ describe("FetchHabitsByDayController (e2e)", ()=>{
     await app.init()
   })
 
-  test("[GET] /habits/day", async ()=>{
+  test("[PATCH] /habits/:id/toggle", async ()=>{
+    const client = await clientFactory.makePrismaClient()
 
-    const client = await clientFactory.makePrismaClient({})
+    const accessToken = jwt.sign({sub: client.id.toValue()})
 
     const habitOne = await habitFactory.makePrismaHabit({
       clientId: client.id,
@@ -64,28 +68,17 @@ describe("FetchHabitsByDayController (e2e)", ()=>{
       })
     ])
 
-    const accessToken = jwt.sign({sub: client.id.toValue()})
-
     const response = await request(app.getHttpServer())
-      .get('/habits/day')
+      .patch(`/habits/${habitOne.id}/toggle`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send()
 
-    expect(response.status).toBe(200)
-    expect(response.body).toEqual(expect.objectContaining({
-      possibleHabits: expect.arrayContaining([
-        expect.objectContaining({
-          id: expect.any(String),
-          title: 'Gym'
-        }),
-        expect.objectContaining({
-          id: expect.any(String),
-          title: 'Read books'
-        })
-      ]),
-      completedHabitIds: []
-    }))
-    expect(response.body.possibleHabits).toHaveLength(2)
+    expect(response.statusCode).toBe(200)
 
+    const completedHabit = await prisma.dayHabit.findMany()
+
+    expect(completedHabit[0].habitId).toBe(habitOne.id.toValue())
+
+    
   })
 })

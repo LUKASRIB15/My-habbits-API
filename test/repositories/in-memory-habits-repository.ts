@@ -32,4 +32,13 @@ export class InMemoryHabitsRepository implements HabitsRepository {
     return habitsOfDay
   }
 
+  async findById(id: string): Promise<Habit | null> {
+    const habit = this.items.find(item => item.id.equals(new UniqueEntityID(id)))
+
+    if(!habit){
+      return null
+    }
+
+    return habit
+  }
 }
