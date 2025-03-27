@@ -63,14 +63,23 @@ Content-Type: application/json
 Authorization: Bearer {{access_token}}
 
 {
-  "title": "Ir para a academia",
-  "weekDays": [1,2,3,4,5]
+  "title": "Ir para o mercado",
+  "weekDays": [0,4,5]
 }
 
 ###
 
 # @name fetch_habits_by_day
 
-GET {{base_url}}/habits/day?date=2025-03-24T03:00:00.000
+GET {{base_url}}/habits/day
 Content-Type: application/json
 Authorization: Bearer {{access_token}} 
+
+###
+
+# @name toggle_habit
+
+PATCH {{base_url}}/habits/d8867ad5-2ee1-4d3d-a07e-88206c819081/toggle
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+

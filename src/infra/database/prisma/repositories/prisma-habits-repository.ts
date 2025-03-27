@@ -45,4 +45,18 @@ export class PrismaHabitsRepository implements HabitsRepository {
 
     return habits.map(habit => PrismaHabitsMapper.toDomain(habit))
   }
+
+  async findById(id: string): Promise<Habit | null> {
+    const habit = await this.prisma.habit.findUnique({
+      where: {
+        id
+      }
+    })
+
+    if(!habit){
+      return null
+    }
+
+    return PrismaHabitsMapper.toDomain(habit)
+  }
 }

@@ -5,6 +5,7 @@ import { CurrentUser } from "@/infra/auth/current-user.decorator";
 import { UserPayload } from "@/infra/auth/jwt-strategy";
 import { FetchHabitsByDayUseCase } from "@/domain/app/application/use-cases/fetch-habits-by-day";
 import { HabitsPresenter } from "../presenters/habits-presenter";
+import { DayHabitsPresenter } from "../presenters/day-habits-presenter";
 
 const fetchHabitsByDayQuerySchema = z.object({
   date: z.coerce.date().optional().default(new Date())
@@ -42,7 +43,8 @@ export class FetchHabitsByDayController {
     }
 
     return {
-      habits: result.value.habits.map(habit => HabitsPresenter.toHTTP(habit))
+      possibleHabits: result.value.possibleHabits.map(habit => HabitsPresenter.toHTTP(habit)),
+      completedHabitIds: result.value.completedHabits.map(dayHabit => DayHabitsPresenter.toHTTP(dayHabit))
     }
   }
 }
