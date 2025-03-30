@@ -9,7 +9,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle("My Habbits")
-    .setVersion("0.0.2")
+    .setVersion("0.0.3")
     .addBearerAuth()
     .build()
 

@@ -93,3 +93,26 @@ $ pnpm run test:e2e
 # test coverage
 $ pnpm run test:cov
 ```
+
+## Access docs page
+
+In this project we are using Swagger to document our routes so that it is easy for anyone to understand them in front-end development. Therefore, when running the project in development mode, access the Swagger documentation via the route <a href="http://localhost:3333/docs" style="color: #189ab4;">http://localhost:3333/docs</a> 
+
+OBS: In this project, the port is 3333, but you can change to your port value
+
+## Database
+
+![](docs/images/db-logic.png)
+
+## 🛠 Tech and Libraries
+
+<div style="display: inline_block"><br>
+  <img align="center" alt="Lucas-Ts" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-plain.svg">
+  <img align="center" alt="Lucas-Docker" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-plain-wordmark.svg" >
+  <img align="center" alt="Lucas-Nest" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nestjs/nestjs-original.svg" />
+  <img align="center" alt="Lucas-Vitest" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitest/vitest-original.svg" />
+  <img align="center" alt="Lucas-Prisma" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prisma/prisma-original.svg" />
+  <img align="center" alt="Lucas-Postgres" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" />
+  <img align="center" alt="Lucas-Swagger" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/swagger/swagger-original.svg" />
+</div>
+
