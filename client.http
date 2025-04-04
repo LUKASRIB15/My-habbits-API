@@ -79,7 +79,7 @@ Authorization: Bearer {{access_token}}
 
 # @name toggle_habit
 
-PATCH {{base_url}}/habits/f95b3945-443e-459c-ab8b-9297abedaf02/toggle
+PATCH {{base_url}}/habits/6a557e55-58ec-4991-8174-4efd1f1e43db/toggle
 Content-Type: application/json
 Authorization: Bearer {{access_token}}
 
