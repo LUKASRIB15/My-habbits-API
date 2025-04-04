@@ -5,7 +5,6 @@ import { CurrentUser } from "@/infra/auth/current-user.decorator";
 import { UserPayload } from "@/infra/auth/jwt-strategy";
 import { FetchHabitsByDayUseCase } from "@/domain/app/application/use-cases/fetch-habits-by-day";
 import { HabitsPresenter } from "../presenters/habits-presenter";
-import { DayHabitsPresenter } from "../presenters/day-habits-presenter";
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { FetchHabitsByDayDTO } from "../docs/dtos/fetch-habits-by-day.dto";
 import { FetchHabitByDay200 } from "../docs/responses/fetch-habits-by-day";
@@ -64,7 +63,7 @@ export class FetchHabitsByDayController {
 
     return {
       possibleHabits: result.value.possibleHabits.map(habit => HabitsPresenter.toHTTP(habit)),
-      completedHabitIds: result.value.completedHabits.map(dayHabit => DayHabitsPresenter.toHTTP(dayHabit))
+      completedHabitIds: result.value.completedHabits.map(dayHabit => dayHabit.habitId.toValue())
     }
   }
 }

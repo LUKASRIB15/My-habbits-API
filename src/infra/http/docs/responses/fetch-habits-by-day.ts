@@ -12,9 +12,7 @@ export class FetchHabitByDay200 {
   possibleHabits: Array<typeof HabitsPresenter.toHTTP>
 
   @ApiProperty({example: [
-    {
-      habitId: "d8867ad5-2ee1-4d3d-a07e-88206c819081"
-    }
+    "d8867ad5-2ee1-4d3d-a07e-88206c819081"
   ]})
   completedHabitIds: Array<typeof DayHabitsPresenter.toHTTP>
 }
